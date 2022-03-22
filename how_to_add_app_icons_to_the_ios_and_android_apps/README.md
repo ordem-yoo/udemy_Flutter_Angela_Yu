@@ -1,6 +1,6 @@
 # how_to_add_app_icons_to_the_ios_and_android_apps
 
-A new Flutter project.
+I am rich 앱 완성
 
 ## Getting Started
 
