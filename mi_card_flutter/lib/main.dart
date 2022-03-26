@@ -53,7 +53,7 @@ void main() {
   );
 }
 
-// 39강 Mikcard App - padding, margin, EdgeInsets
+// 39강 Mikard App - padding, margin, EdgeInsets
 // Scaffold(
 //         backgroundColor: Colors.teal,
 //         body: SafeArea(
@@ -75,7 +75,7 @@ void main() {
 //         ),
 //       ),
 
-// 42강 Mikcard App - Row(mainAxisAlignment, mainAxisSize, verticalDirection)
+// 42강 Micard App - Row(mainAxisAlignment, mainAxisSize, verticalDirection)
 // Row(
 //   // 수평축으로 위젯을 넣을 수 있는 위젯
 //   mainAxisAlignment: MainAxisAlignment.end,
