@@ -7,6 +7,7 @@ void main() {
         backgroundColor: Colors.teal,
         body: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
                 // 프로필 원 생성 위젯
@@ -44,9 +45,20 @@ void main() {
                   color: Colors.white,
                 ),
               ),
+              SizedBox(
+                width: 200.0,
+                height: 20.0,
+                child: Divider(
+                  color: Colors.teal.shade100,
+                ),
+              ),
               Container(
+                // Card 위젯을 사용하면 Container로 만들었던 코드를 축소 시킬 수 있다.
+                // Card 위젯을 사용하면 padding property는 쓸 수 없다.
+                // documentation을 보면 padding property는 Padding 위젯에서 사용할 수 있기 때문이다.
+                // Container에서 padding property를 사용할 수 있는 이유는 Container위젯이 여러 위젯을 편리한 패키지로 결합한 것이기 때문이다.
+                padding: EdgeInsets.all(15.0),
                 color: Colors.white,
-                padding: EdgeInsets.all(10.0),
                 margin: EdgeInsets.symmetric(
                   vertical: 10.0,
                   horizontal: 25.0,
@@ -71,32 +83,27 @@ void main() {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(10.0),
+              Card(
                 color: Colors.white,
                 margin: EdgeInsets.symmetric(
                   vertical: 10.0,
                   horizontal: 25.0,
                 ),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.mail,
-                      color: Colors.teal,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      'youngcheol@email.com',
-                      style: TextStyle(
-                          color: Colors.teal.shade900,
-                          fontSize: 20.0,
-                          fontFamily: 'Sourse Sans Pro'),
-                    ),
-                  ],
+                child: ListTile(
+                  leading: Icon(
+                    Icons.mail,
+                    color: Colors.teal,
+                  ),
+                  title: Text(
+                    'youngcheol@email.com',
+                    style: TextStyle(
+                        color: Colors.teal.shade900,
+                        fontSize: 20.0,
+                        fontFamily: 'Sourse Sans Pro'),
+                  ),
                 ),
               ),
+              // Card 위젯을 사용하면 Container 위젯으로 만든것보다 더 적은줄로 만들 수 있다.
             ],
           ),
         ),
