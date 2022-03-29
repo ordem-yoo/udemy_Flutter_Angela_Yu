@@ -21,13 +21,32 @@ class DicePage extends StatefulWidget {
 }
 
 class _DicePageState extends State<DicePage> {
+  // build 외에 다른 메서드에서 해당 변수에 접근하여햐 하는 경우엔 메서드 밖에서 호출하는게 강제적이다.
+  // Stateful Widget에서는 build 메서드 밖 ~ 클래스 안에서 변수 선언을 해도 문제가 없지만,
+  // Stateless Widget의 경우 build 메서드 밖 ~ 클래스 안에서 변수 선언을 하면 문제가 생긴다.
+  // 문제가 생기는 이유는 Stateless는 build 메서드를 한 번만 호출하기 때문이다.
+  // Stateless와 Stateful의 차이점은 동적 변화의 유무도 있다.
+  // Stateless는 위 처럼 build메서드를 한 번만 호출하기 때문에 이미지변화, 값의 변화등 UI의 변화가 일어나지 못하지만.
+  // Stateful은 이미지변화 ,값의 변화등 UI의 변화가 동적으로 일어난다.
+  int leftDiceNumber = 5;
+  int rightDiceNumber = 3;
   @override
   Widget build(BuildContext context) {
-    // build 메서드 안에서 변수 선언을 하면 빌드를 호출할때 마다 변수 선언도 같이하게 된다.
-    int leftDiceNumber = 5;
+    // build 메서드 안에서 변수 선언을 하면 build 메서드를 호출할때 마다 변수 선언도 같이하게 된다.
+    // build 메서드 안에서 변수 선언/ 초기화를 하면 변화가 없을 수 있다.
+    // 아래의 코드를 참조하면 bulld 메서드가 어떻게 돌아가는지 알 수 있다.
+    // https://dartpad.dev/?id=029b0902bf7ee07a5a5ca4deca5bf596
+    // 위 사이트 해석
+    // 기본 카운트 앱은 플로팅 버튼을 누르면 화면에 있는 숫자가 증가하는 앱인데 동작은 다음과 같다
+    // 버튼을 누르면, 숫자를 증가시키는 함수를 호출하고, 호출된 함수는 build 메서드를 호출하게 된다.
+    // 호출하는 과정에서 숫자값을 가지고 있는 변수의 값을 증가시켜 증가하게 된다.
+    // build 메서드안에 있게 되면 build 메서드를 호출할때 build 메서드 안에 있는 모든 내용을 다시 호출하게 된다.
+    // 이는 변수 선언이 되어 있으면 변수의 값을 바꿀 수 없다는 말과 같다.
+    // 따라서 build 메서드 안에서 선언 및 초기화를 할 경우 값이 원하는대로 안바뀔 수 있다는 것이다.
+    // int leftDiceNumber = 5;
+    // int rightDiceNumber = 3;
     // var는 추론형 타입으로 에러가 발생할 수 있다.
     // 자료형이 확실하다면 자료형을 명시하는게 좋다.
-    int rightDiceNumber = 3;
 
     return Center(
       child: Row(
@@ -36,7 +55,14 @@ class _DicePageState extends State<DicePage> {
             child: FlatButton(
               child: Image.asset('images/dice$leftDiceNumber.png'),
               onPressed: () {
-                print('Left Button got Pressed');
+                // 버튼을 눌렀을때 실행되는 함수이다.
+                // onpressed 함수는 단순히 콘솔의 값만 바뀐다.
+                setState(() {
+                  // build 메서드를 호출하는 함수이다.
+                  // setState 함수는 콘솔의 값도 바뀌지만 화면도 변화를 한다.
+                  leftDiceNumber = 4;
+                  print(leftDiceNumber);
+                });
               },
             ),
           ),
@@ -44,7 +70,9 @@ class _DicePageState extends State<DicePage> {
             child: FlatButton(
               child: Image.asset('images/dice$rightDiceNumber.png'),
               onPressed: () {
-                print('Right Button got pressed');
+                setState(() {
+                  rightDiceNumber = 4;
+                });
               },
             ),
           ),
@@ -55,7 +83,6 @@ class _DicePageState extends State<DicePage> {
 }
 
 // 57강 까지의 내용
-
 
 // class DicePage extends StatelessWidget {
 //   @override
