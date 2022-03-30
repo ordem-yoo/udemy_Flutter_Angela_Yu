@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -60,7 +62,13 @@ class _DicePageState extends State<DicePage> {
                 setState(() {
                   // build 메서드를 호출하는 함수이다.
                   // setState 함수는 콘솔의 값도 바뀌지만 화면도 변화를 한다.
-                  leftDiceNumber = 4;
+                  leftDiceNumber = Random().nextInt(6) + 1;
+                  // Random class docs https://api.flutter.dev/flutter/dart-math/Random-class.html
+                  // Random 클래스를 사용해서 난수를 생성한다.
+                  // docs에서도 볼 수 있지만 nextInt 메서드는 0부터 ()안에 입력한 숫자-1 까지의 숫자들로 난수를 생성한다.
+                  // Random 클래스는 dart:math 라이브러리가 있어야 한다.
+                  // import 사용해 라이브러리를 추가한다.
+                  // 메서드로 nextInt를 가지고 있으며 메서드를 사용할 때 함수옆에 .를 입력하고 메서드를 사용한다.
                   print(leftDiceNumber);
                 });
               },
@@ -71,7 +79,7 @@ class _DicePageState extends State<DicePage> {
               child: Image.asset('images/dice$rightDiceNumber.png'),
               onPressed: () {
                 setState(() {
-                  rightDiceNumber = 4;
+                  rightDiceNumber = Random().nextInt(6) + 1;
                 });
               },
             ),
