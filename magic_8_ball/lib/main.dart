@@ -30,7 +30,8 @@ class Ball extends StatefulWidget {
 class _BallState extends State<Ball> {
   int ballNumber = 1;
 
-  void changeBallNumber() {
+  // onpressed안 함수의 내용
+  void ChangeBallNumber() {
     setState(() {
       ballNumber = Random().nextInt(5) + 1;
     });
@@ -44,9 +45,11 @@ class _BallState extends State<Ball> {
     return Center(
       child: FlatButton(
         onPressed: () {
-          changeBallNumber();
+          // 함수 사용
+          ChangeBallNumber();
         },
         child: Image.asset('images/ball$ballNumber.png'),
+        // String interpolation 사용
       ),
     );
   }
