@@ -32,13 +32,23 @@ class _DicePageState extends State<DicePage> {
   // Stateful은 이미지변화 ,값의 변화등 UI의 변화가 동적으로 일어난다.
   int leftDiceNumber = 5;
   int rightDiceNumber = 3;
+
+  void changeDicePage() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) + 1;
+    });
+  }
+  // 같은 문장이 반복되면 코드의 길이도 길어지고 헷갈릴 수 있다.
+  // 함수를 만들면 반복되는 코드의 길이도 줄이고 가독성 또한 높일 수 있다.
+
   @override
   Widget build(BuildContext context) {
     // build 메서드 안에서 변수 선언을 하면 build 메서드를 호출할때 마다 변수 선언도 같이하게 된다.
     // build 메서드 안에서 변수 선언/ 초기화를 하면 변화가 없을 수 있다.
     // 아래의 코드를 참조하면 bulld 메서드가 어떻게 돌아가는지 알 수 있다.
     // https://dartpad.dev/?id=029b0902bf7ee07a5a5ca4deca5bf596
-    // 위 사이트 해석
+    // 위 사이트 예시를 해석하자면 위 사이트에 있는 코드는 프로젝트를 처음 생성되는 코드이다.
     // 기본 카운트 앱은 플로팅 버튼을 누르면 화면에 있는 숫자가 증가하는 앱인데 동작은 다음과 같다
     // 버튼을 누르면, 숫자를 증가시키는 함수를 호출하고, 호출된 함수는 build 메서드를 호출하게 된다.
     // 호출하는 과정에서 숫자값을 가지고 있는 변수의 값을 증가시켜 증가하게 된다.
@@ -57,20 +67,7 @@ class _DicePageState extends State<DicePage> {
             child: FlatButton(
               child: Image.asset('images/dice$leftDiceNumber.png'),
               onPressed: () {
-                // 버튼을 눌렀을때 실행되는 함수이다.
-                // onpressed 함수는 단순히 콘솔의 값만 바뀐다.
-                setState(() {
-                  // build 메서드를 호출하는 함수이다.
-                  // setState 함수는 콘솔의 값도 바뀌지만 화면도 변화를 한다.
-                  leftDiceNumber = Random().nextInt(6) + 1;
-                  // Random class docs https://api.flutter.dev/flutter/dart-math/Random-class.html
-                  // Random 클래스를 사용해서 난수를 생성한다.
-                  // docs에서도 볼 수 있지만 nextInt 메서드는 0부터 ()안에 입력한 숫자-1 까지의 숫자들로 난수를 생성한다.
-                  // Random 클래스는 dart:math 라이브러리가 있어야 한다.
-                  // import 사용해 라이브러리를 추가한다.
-                  // 메서드로 nextInt를 가지고 있으며 메서드를 사용할 때 함수옆에 .를 입력하고 메서드를 사용한다.
-                  print(leftDiceNumber);
-                });
+                changeDicePage();
               },
             ),
           ),
@@ -78,9 +75,7 @@ class _DicePageState extends State<DicePage> {
             child: FlatButton(
               child: Image.asset('images/dice$rightDiceNumber.png'),
               onPressed: () {
-                setState(() {
-                  rightDiceNumber = Random().nextInt(6) + 1;
-                });
+                changeDicePage();
               },
             ),
           ),
@@ -126,6 +121,48 @@ class _DicePageState extends State<DicePage> {
 //               child: Image.asset('images/dice$rightDiceNumber.png'),
 //               onPressed: () {
 //                 print('Right Button got pressed');
+//               },
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// 59강 Randomising the Dice
+//
+// return Center(
+//       child: Row(
+//         children: [
+//           Expanded(
+//             child: FlatButton(
+//               child: Image.asset('images/dice$leftDiceNumber.png'),
+//               onPressed: () {
+//                 // 버튼을 눌렀을때 실행되는 함수이다.
+//                 // onpressed 함수는 단순히 콘솔의 값만 바뀐다.
+//                 setState(() {
+//                   // build 메서드를 호출하는 함수이다.
+//                   // setState 함수는 콘솔의 값도 바뀌지만 화면도 변화를 한다.
+//                   leftDiceNumber = Random().nextInt(6) + 1;
+//                   // Random class docs https://api.flutter.dev/flutter/dart-math/Random-class.html
+//                   // Random 클래스를 사용해서 난수를 생성한다.
+//                   // docs에서도 볼 수 있지만 nextInt 메서드는 0부터 ()안에 입력한 숫자-1 까지의 숫자들
+//                   // Random 클래스는 dart:math 라이브러리가 있어야 한다.
+//                   // import 사용해 라이브러리를 추가한다.
+//                   // 메서드로 nextInt를 가지고 있으며 메서드를 사용할 때 함수옆에 .를 입력하고 메서드를 사용한다.
+//                   print(leftDiceNumber);
+//                 });
+//               },
+//             ),
+//           ),
+//           Expanded(
+//             child: FlatButton(
+//               child: Image.asset('images/dice$rightDiceNumber.png'),
+//               onPressed: () {
+//                 setState(() {
+//                   rightDiceNumber = Random().nextInt(6) + 1;
+//                 });
 //               },
 //             ),
 //           ),
