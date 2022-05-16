@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Page
-import 'question.dart';
 
+import 'quizbrain.dart';
+
+// 객체를 사용하기 위해 생성자를 호출했다.
+QuizBrain quiz = QuizBrain();
 void main() => runApp(const Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -44,35 +47,32 @@ class _QuizPageState extends State<QuizPage> {
   // 따라서 유동적인 data type이 필요한 경우가 아니라면 명시하는게 좋다.
   // 아래에서 <Icon>을 해도 된다. []안의 위젯이 전부 Icon이기 때문에 가능한것이다.
 
-  List<Icon> scoreIcon = [];
   // 정답 표시
+  List<Icon> scoreIcon = [];
 
+  // // 문제 목록
   // List<String> questions = [
   //   'You can lead a cow down stairs but not up stairs.',
   //   'Approximately one quarter of human bones are in the feet.',
   //   'A slug\'s blood is green.',
   // ]; // 특수문자 중 다른 역할로 사용되고 있는 특수문자들은 \(역슬래시) 사용해서 표현한다.
-  // // 문제 목록
 
+  // // 정답 목록
   // List<bool> answers = [
   //   false,
   //   true,
   //   true,
   // ];
-  // // 정답 목록
 
   // // 문제와 정답을 한 번에 저장하기 위해서 클래스를 생성했다.
   // // question.dart 참조
-  // Question q1 = Question(
-  //   q: 'You can lead a cow down stairs but not up stairs.',
-  //   a: false,
-  // );
-
-  List<Question> questionBank = [
-    Question('You can lead a cow down stairs but not up stairs.', false),
-    Question('Approximately one quarter of human bones are in the feet.', true),
-    Question('A slug\'s blood is green.', true),
-  ];
+  // // Question('문제', 정답) 으로 구성되어 있고,
+  // // Question을 하나의 List로 묶을 수 있다.
+  // List<Question> questionBank = [
+  //   Question('You can lead a cow down stairs but not up stairs.', false),
+  //   Question('Approximately one quarter of human bones are in the feet.', true),
+  //   Question('A slug\'s blood is green.', true),
+  // ];
 
   int questionNumber = 0;
   @override
@@ -87,7 +87,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionBank[questionNumber].questionText,
+                quiz.questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -113,7 +113,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 // 버튼 값 변수에 저장
                 bool correctAnswer =
-                    questionBank[questionNumber].questionAnswer;
+                    quiz.questionBank[questionNumber].questionAnswer;
 
                 // 정답 확인
                 if (correctAnswer == true) {
@@ -154,7 +154,7 @@ class _QuizPageState extends State<QuizPage> {
 
                 // 버튼 값 변수에 저장
                 bool correctAnswer =
-                    questionBank[questionNumber].questionAnswer;
+                    quiz.questionBank[questionNumber].questionAnswer;
 
                 // 정답 확인
                 if (correctAnswer == true) {
