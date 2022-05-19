@@ -74,7 +74,6 @@ class _QuizPageState extends State<QuizPage> {
   //   Question('A slug\'s blood is green.', true),
   // ];
 
-  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,7 +86,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quiz.questionBank[questionNumber].questionText,
+                quiz.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -112,8 +111,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // 버튼 값 변수에 저장
-                bool correctAnswer =
-                    quiz.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quiz.getAnswerText();
 
                 // 정답 확인
                 if (correctAnswer == true) {
@@ -129,7 +127,7 @@ class _QuizPageState extends State<QuizPage> {
                       color: Colors.green,
                     ),
                   );
-                  questionNumber = questionNumber + 1;
+                  quiz.nextQuestion();
                 });
               },
             ),
@@ -153,8 +151,7 @@ class _QuizPageState extends State<QuizPage> {
                 // setState가 없으면 계속 build를 하지 못해 콘솔에서만 내용이 남는다.
 
                 // 버튼 값 변수에 저장
-                bool correctAnswer =
-                    quiz.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quiz.getAnswerText();
 
                 // 정답 확인
                 if (correctAnswer == true) {
@@ -174,7 +171,7 @@ class _QuizPageState extends State<QuizPage> {
                         color: Colors.red,
                       ),
                     );
-                    questionNumber++; // questionNumber = questionNumber + 1 코드를 줄일수 있다.
+                    quiz.nextQuestion(); // questionNumber = questionNumber + 1 코드를 줄일수 있다.
                   },
                 );
               },
