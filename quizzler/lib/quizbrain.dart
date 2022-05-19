@@ -1,7 +1,10 @@
 import 'question.dart';
 
 class QuizBrain {
-  List<Question> questionBank = [
+  int _questionNumber = 0;
+  // 변수명 앞에 _를 사용해서 다른 곳에서 접근하지 못하도록 할 수 있다.
+
+  List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -28,4 +31,23 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  // 접근이 제한된 변수를 사용하기 위해 함수로 만들어서 사용
+  void nextQuestion() {
+    if (_questionNumber < _questionBank.length - 1) {
+      // 
+      _questionNumber++;
+    }    
+  }
+
+  String getQuestionText() {
+    return _questionBank[_questionNumber].questionText;
+  }
+
+  bool getAnswerText() {
+    return _questionBank[_questionNumber].questionAnswer;
+  }
 }
+
+
+// 캡슐화
