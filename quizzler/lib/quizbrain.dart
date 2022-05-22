@@ -32,12 +32,27 @@ class QuizBrain {
         true),
   ];
 
-  // 접근이 제한된 변수를 사용하기 위해 함수로 만들어서 사용
+  // 접근이 제한된 변수를 사용하기 위해 함수로 만들어서 사용했다.
   void nextQuestion() {
+    print(_questionNumber);
+    // List의 개수가 초과했을 때 range에러가 발생하는 것을 방지하기 위해 if 문을 사용했다.
     if (_questionNumber < _questionBank.length - 1) {
-      // 
+      // List 안에 있는 질문은 총 13개가 있다.
+      // _questionNumber는 List에 있는 질문을 사용하기 위해, 0으로 초기화 했다.
+      // List는 배열과 동일하게 index가 0번째 부터 시작된다.
+      // 즉, 13개의 질문은 0 ~ 12의 index를 가지게 된다.
+      // _questionBank.length는 _questionBank의 길이 즉, List에 있는 질문의 개수를 말한다.
+      // 13개의 질문이 있기 때문에 값을 출력하면 13으로 나온다.
+      // print를 통해 두 변수의 값을 비교했다.
+      // number               = 1  2  3  4  5  6  7  8  9  10 11  12  13  14
+      // _questionNumber      = 0  1  2  3  4  5  6  7  8  9  10  11  12  13
+      // _questionBank.length = 13 13 13 13 13 13 13 13 13 13 13  13  13  13
+      // 질문의 개수는 13개인데 13번에서 _questionNumber가 12이기 때문에 1번 더 if문의 코드를 수행하고 따라서 오류가 발생한 것이다.
+      // _questionBank.length에서 -1 을 해서 13번에서 if문을 중단시켜 오류 발생을 방지한다.
       _questionNumber++;
-    }    
+      print(_questionNumber);
+      print(_questionBank.length);
+    }
   }
 
   String getQuestionText() {
@@ -48,6 +63,5 @@ class QuizBrain {
     return _questionBank[_questionNumber].questionAnswer;
   }
 }
-
 
 // 캡슐화
