@@ -1,5 +1,6 @@
 // Package
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 // Page
 
@@ -49,6 +50,56 @@ class _QuizPageState extends State<QuizPage> {
 
   // 정답 표시
   List<Icon> scoreIcon = [];
+
+  void checkAnswer(bool userPickedAnswer) {
+    // 버튼 값 변수에 저장
+    bool correctAnswer = quiz.getAnswerText();
+
+    setState(() {
+      if (quiz.isFinished() == true) {
+        Alert(
+          context: context,
+          title: "Finished",
+          desc: "you've reached the end of the quiz",
+        ).show();
+
+        quiz.reset();
+
+        scoreIcon = [];
+      } else {
+        // 정답 확인
+        if (userPickedAnswer == correctAnswer) {
+          print('user got it right');
+
+          // List에서 data를 추가하려면 Collection명.add를 사용한다.
+          // 반대로 지우려면 Collection명.removeAt(index number)로 지운다.
+          scoreIcon.add(
+            const Icon(
+              // 아이콘 위젯 FontAwesome Package를 통해서 좋은 아이콘을 사용할 수 있다.
+              Icons.check_box,
+              color: Colors.green,
+            ),
+          );
+
+          quiz.nextQuestion(); // questionNumber = questionNumber + 1 코드를 줄일수 있다.
+        } else {
+          print('user got it wrong');
+
+          // List에서 data를 추가하려면 Collection명.add를 사용한다.
+          // 반대로 지우려면 Collection명.removeAt(index number)로 지운다.
+          scoreIcon.add(
+            const Icon(
+              // 아이콘 위젯 FontAwesome Package를 통해서 좋은 아이콘을 사용할 수 있다.
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+
+          quiz.nextQuestion(); // questionNumber = questionNumber + 1 코드를 줄일수 있다.
+        }
+      }
+    });
+  }
 
   // // 문제 목록
   // List<String> questions = [
@@ -110,25 +161,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                // 버튼 값 변수에 저장
-                bool correctAnswer = quiz.getAnswerText();
-
-                // 정답 확인
-                if (correctAnswer == true) {
-                  print('user got it right');
-                } else {
-                  print('user got it wrong');
-                }
-
-                setState(() {
-                  scoreIcon.add(
-                    const Icon(
-                      Icons.check_box,
-                      color: Colors.green,
-                    ),
-                  );
-                  quiz.nextQuestion();
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -149,38 +182,14 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 // setState는 이전에 설명한 것처럼 build method를 호출하는 함수이다.
                 // setState가 없으면 계속 build를 하지 못해 콘솔에서만 내용이 남는다.
-
-                // 버튼 값 변수에 저장
-                bool correctAnswer = quiz.getAnswerText();
-
-                // 정답 확인
-                if (correctAnswer == true) {
-                  print('user got it right');
-                } else {
-                  print('user got it wrong');
-                }
-
-                setState(
-                  () {
-                    // List에서 data를 추가하려면 Collection명.add를 사용한다.
-                    // 반대로 지우려면 Collection명.removeAt(index number)로 지운다.
-                    scoreIcon.add(
-                      const Icon(
-                        // 아이콘 위젯 FontAwesome Package를 통해서 좋은 아이콘을 사용할 수 있다.
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
-                    quiz.nextQuestion(); // questionNumber = questionNumber + 1 코드를 줄일수 있다.
-                  },
-                );
+                checkAnswer(false);
               },
             ),
           ),
         ),
-        // scoreIcon은 List type으로 된 Collection이다.
-        // Collection이 children의 []역할을 대신하므로 children: scoreIcon이 가능하다.
         Row(
+          // scoreIcon은 List type으로 된 Collection이다.
+          // Collection이 children의 []역할을 대신하므로 children: scoreIcon이 가능하다.
           children: scoreIcon,
         )
       ],
