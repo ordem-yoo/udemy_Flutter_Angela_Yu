@@ -1,0 +1,53 @@
+TODO: 
+
+Step 1 - Add the rFlutter Alert package as a dependency here and use "Packages get".
+
+		 pubspec.yaml에서 rFlutter Alert 패키지를 종속성으로 추가하고 "Packages get"을 사용합니다. 
+
+
+Step 2 - Import the rFlutter_Alert package here.
+
+		 rFlutter_Alert 패키지를 사용하는 곳에서 import 합니다.
+
+
+Step 3 Part A - Create a method called isFinished() here that checks to see if we have reached the last question.
+				It should return (have an output) true if we've reached the last question and it should return false if we're not there yet.
+				
+				마지막 질문에 도착했는지를 확인하기 위해서 isFinished()메서드를 만듭니다. 
+				마지막 질문에 도착했다면 isFinished()메서드에서 true를 반환하고, 마지막 질문에 도착하지 못했다면 false를 반환합니다.
+				
+				
+	   Part B - Use a print statement to check that isFinished is returning true 
+				when you are indeed at the end of the quiz and when a restart should happen.
+				
+				isFinished()메서드가 제대로 작동하는지 print()를 사용해 콘솔로 true/false를 확인합니다.
+				
+				
+Step 4 - Use IF/ELSE to check if we've reached the end of the quiz. If true, execute Part A, B, C, D.
+		
+				퀴즈가 true값을 반환하는지 확인하고, 반환한다면 아래 단계를 수행합니다.
+	   
+	   
+	   Part A - show an alert using rFlutter_alert (remember to read the docs for the package!)
+				
+				패키지 문서를 참고하여 rFlutter_alert를 사용하고 alert화면을 출력해봅니다.
+				
+	   
+	   Part B - Create a reset() method here that sets the questionNumber back to 0.
+	   
+				questionNumber를 0으로 설정하는 reset()메서드를 만들어줍니다.
+				
+	   
+	   Part C - reset the questionNumber,
+				
+				questionNumber를 리셋합니다.
+	   
+	   
+	   Part D - empty out the scoreKeeper.
+				
+				scoreKeeper를 비웁니다.
+				
+				
+Step 5 - If we've not reached the end, ELSE do the answer checking steps below 
+		 
+		 모든 단계를 수행하지 못했다면 정답 코드를 확인해보면서 해봅니다.
