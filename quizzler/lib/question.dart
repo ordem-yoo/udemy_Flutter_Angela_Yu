@@ -3,15 +3,26 @@
 // // flutter 2.0 null safety로 인해서 변수의 초기화 없이 선언이 불가하다.
 // // 임의의 값을 넣어서 초기화를 하고 선언했다.
 
+// class Question {
+//   String questionText = '';
+//   bool questionAnswer = false;
+
+//   Question(String q, bool a) {
+//     questionText = q;
+//     questionAnswer = a;
+//   }
+// }
+
 class Question {
   String questionText = '';
   bool questionAnswer = false;
 
-  Question(String q, bool a) {
-    questionText = q;
-    questionAnswer = a;
-  }
+  Question(this.questionText, this.questionAnswer);
 }
+// // Class Constructors
+// // DartPad 참조 
+// // https://dartpad.dev/?id=6f6603ba5fa9e3b32cc3dddbcd555635
+
 
 // // class 와 constructor 만들기
 // // DartPad 참조
