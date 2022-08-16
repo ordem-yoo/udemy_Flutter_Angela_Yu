@@ -6,10 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 
-const bottomContainerHeight = 80.0;
-const activeCardColour = Color(0xFF1D1E33);
-const inactiveCardColour = Color(0xff111328);
-const bottomContainerColor = Color(0xFFEB1555);
+// etc
+import 'costants.dart';
 
 enum Gender {
   male,
@@ -22,36 +20,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Color maleCardColour = inactiveCardColour;
-  Color femaleCardColour = inactiveCardColour;
-
-  // male = 1, female = 2
-  void updateColour(Gender selectedGender) {
-    // male card를 눌렀을 때
-    if (selectedGender == Gender.male) {
-      if (maleCardColour == inactiveCardColour) {
-        maleCardColour = activeCardColour;
-        femaleCardColour =
-            inactiveCardColour; // 둘 다 선택할 수 없기 때문에 반대 성별은 꺼지도록 만든다.
-      } else {
-        maleCardColour = inactiveCardColour;
-      }
-    }
-    // female card를 눌렀을 때
-    if (selectedGender == Gender.female) {
-      if (femaleCardColour == inactiveCardColour) {
-        femaleCardColour = activeCardColour;
-        maleCardColour = inactiveCardColour;
-      } else {
-        femaleCardColour = inactiveCardColour;
-      }
-    }
-  }
+  Gender? selectedGender;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             // Expanded 위젯은 위젯의 크기를 핸드폰 화면에 맞춰서 생성해주는 위젯이다.
@@ -61,11 +36,13 @@ class _HomeState extends State<Home> {
                     child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      updateColour(Gender.male);
+                      selectedGender = Gender.male;
                     });
                   },
                   child: ReusableCard(
-                    colour: maleCardColour,
+                    colour: selectedGender == Gender.male
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.mars,
                       label: "MALE",
@@ -76,11 +53,13 @@ class _HomeState extends State<Home> {
                     child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      updateColour(Gender.female);
+                      selectedGender = Gender.female;
                     });
                   },
                   child: ReusableCard(
-                    colour: femaleCardColour,
+                    colour: selectedGender == Gender.female
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.venus,
                       label: "FEMALE",
@@ -92,19 +71,43 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          Expanded(child: ReusableCard(colour: activeCardColour)),
+          Expanded(
+              child: ReusableCard(
+            colour: kActiveCardColour,
+            cardChild: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Height',
+                  style: kLabelTextStyle,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '180',
+                      style: kHeightTextStyle,
+                    ),
+                    Text(
+                      'cm',
+                      style: kLabelTextStyle,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )),
           Expanded(
             child: Row(
               children: [
-                Expanded(child: ReusableCard(colour: activeCardColour)),
-                Expanded(child: ReusableCard(colour: activeCardColour)),
+                Expanded(child: ReusableCard(colour: kActiveCardColour)),
+                Expanded(child: ReusableCard(colour: kActiveCardColour)),
               ],
             ),
           ),
           Container(
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             width: double.infinity, // 최대한 길이로
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           ),
         ],
       ),
