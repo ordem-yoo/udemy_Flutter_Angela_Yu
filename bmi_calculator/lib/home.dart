@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
   Gender? selectedGender;
   int height = 180;
   int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -146,20 +147,42 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           RoundIconButton(
-                            icon: FontAwesomeIcons.minus,
-                          ),
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              }),
                           SizedBox(
                             width: 10,
                           ),
                           RoundIconButton(
                             icon: FontAwesomeIcons.plus,
+                            onPressed: () {
+                              setState(() {
+                                weight++;
+                              });
+                            },
                           ),
                         ],
                       ),
                     ],
                   ),
                 )),
-                Expanded(child: ReusableCard(colour: kActiveCardColour)),
+                Expanded(
+                    child: ReusableCard(
+                  colour: kActiveCardColour,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'AGE',
+                        style: kLabelTextStyle,
+                      ),
+                      Text(age.toString())
+                    ],
+                  ),
+                )),
               ],
             ),
           ),
@@ -177,26 +200,16 @@ class _HomeState extends State<Home> {
 // 커스텀 floatingActionButton 만들기
 
 class RoundIconButton extends StatelessWidget {
-  RoundIconButton({this.icon});
+  RoundIconButton({required this.icon, required this.onPressed});
 
-  final IconData? icon;
-  final Function bWeight = (int n1, Function bWeight) {
-    return bWeight(n1);
-  };
-
-  int increase(int n1) {
-    return n1++;
-  }
-
-  int decrease(int n2) {
-    return n2--;
-  }
-
+  final IconData icon;
+  final VoidCallback
+      onPressed; // 강의에서는 Function으로 했지만 null safety의 문제로 VoidCallback으로 바꿔야 한다.
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
       child: Icon(icon),
-      onPressed: () {},
+      onPressed: onPressed,
       elevation: 0.0,
       disabledElevation: 6.0,
       constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
