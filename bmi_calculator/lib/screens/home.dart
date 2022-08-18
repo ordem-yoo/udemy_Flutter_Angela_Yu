@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Widget
-import 'icon_content.dart';
-import 'reusable_card.dart';
+import '../components/bottom_button.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
+import '../components/round_icon_button.dart';
+import 'results_page.dart';
 
 // etc
-import 'costants.dart';
+import '../costants.dart';
 
 enum Gender {
   male,
@@ -154,7 +157,7 @@ class _HomeState extends State<Home> {
                                 });
                               }),
                           SizedBox(
-                            width: 10,
+                            width: 10.0,
                           ),
                           RoundIconButton(
                             icon: FontAwesomeIcons.plus,
@@ -179,42 +182,51 @@ class _HomeState extends State<Home> {
                         'AGE',
                         style: kLabelTextStyle,
                       ),
-                      Text(age.toString())
+                      Text(
+                        age.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              }),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              }),
+                        ],
+                      ),
                     ],
                   ),
                 )),
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColor,
-            width: double.infinity, // 화면에서 최대로 가질 수 있는 값을 의미한다.
-            height: kBottomContainerHeight,
+          BottomButton(
+            buttonTitle: 'CALCULATE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => ResultPage()),
+                ),
+              );
+            },
           ),
         ],
       ),
-    );
-  }
-}
-
-// 커스텀 floatingActionButton 만들기
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({required this.icon, required this.onPressed});
-
-  final IconData icon;
-  final VoidCallback
-      onPressed; // 강의에서는 Function으로 했지만 null safety의 문제로 VoidCallback으로 바꿔야 한다.
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      onPressed: onPressed,
-      elevation: 0.0,
-      disabledElevation: 6.0,
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
     );
   }
 }

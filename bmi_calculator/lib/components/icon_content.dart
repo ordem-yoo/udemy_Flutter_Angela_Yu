@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // etc
-import 'costants.dart';
+import '../costants.dart';
 
 // 프로퍼티의 상수화
 // 하드코딩 된 프로퍼티들을 상수화 시킴으로써 코드를 보기 쉽게 만들 수 있다.
