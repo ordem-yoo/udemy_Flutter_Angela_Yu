@@ -5,7 +5,8 @@ import 'dart:io';
 void main() {
   // synchronousPerformTasks();
   //asynchronousPerfomeTasks();
-  asynchronousPerfomeTasks2();
+  //asynchronousPerfomeTasks2();
+  instanceReturn();
 }
 
 // 이 함수를 실행했을때 task2에서 시간이 걸리는 것을 볼 수 있다.
@@ -40,9 +41,6 @@ void task3() {
   print('Task 3 complete');
 }
 
-//
-//
-//
 // 비동기식 코드 예제
 // 465식으로 작업을 수행한다.
 
@@ -73,8 +71,6 @@ void task6() {
   print('Task 6 complete');
 }
 
-//
-//
 // 비동기식 코드 예제2
 // 비동기된 작업이 다음 작업 진행을 위해 비동기된 작업의 결과가 필요한(의존하는) 경우
 // 798식으로 작업을 진행한다.
@@ -96,6 +92,7 @@ void asynchronousPerfomeTasks2() async {
   // async를 추가하면 await 키워드에 액세서 할 수 있다.
   // await이 없으면 동기적으로 실행된다.
   task9(task8Result); // task8Result를 task9함수에 넣는다.
+  print(task10);
 }
 
 void task7() {
@@ -120,4 +117,33 @@ Future<String?> task8() async {
 void task9(String? task8Data) {
   String result = 'task9 data';
   print('task 9 complete with $task8Data');
+}
+
+// Future, await, async의 동작을 알 수 있는 보너스 예제
+
+// Future는 JS에서의 promise와 대응한다.
+// JS의 promise는 특정 동작의 수행이 완료되면 다음 동작을 수행하겠다는 약속,
+// Dart의 Future는 지금은 없지만 미래에 요청한 데이터 혹은 에러가 담길 그릇 이라고 보면 된다.
+
+// 아래 함수를 실행 시켰을때 task10 함수의 첫 반환형은 Future<String?>이다.
+// 3초 후 task 10 complete 라고 다시 나오게 된다.
+// 지금은 없지만 미래에 요청한 데이터를 불러왔기 때문인데
+// 지금이라고 하는 task10함수 출력 타이밍에서 Future<string?>에 대한 반환값이 없기 때문에 Instance of Future<Strinf?>이라고 한다.
+
+void instanceReturn() async {
+  task7();
+  print(task10());
+}
+
+Future<String?> task10() async {
+  Duration threeSeconds = Duration(seconds: 3);
+
+  String? result;
+
+  await Future.delayed(threeSeconds, () {
+    result = 'task 10 data';
+    print('task 10 complete');
+  });
+  return result;
+  // task10의 결과를 반환
 }
