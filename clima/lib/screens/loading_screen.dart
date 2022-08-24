@@ -8,7 +8,17 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  void getLocation() async {
+  @override
+
+  // initState 메서드를 사용해서 버튼을 사용하지 않고 자동으로 위치를 찾도록 했다.
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  @override
+  // 위치를 얻는 메서드
+  Future<Position> getLocation() async {
     // async와 await
     // GPS 위치를 얻는 것처럼 시간 소요가 되는 작업을 수행할 때 쓴다.
     // 데이터를 다운로드하거나 읽으려고 하는 경우에도 동일하게 쓴다.
@@ -33,18 +43,61 @@ class _LoadingScreenState extends State<LoadingScreen> {
     작업이 완료된 후 다음 작업이 시작된다.
 
     */
+
+    /* 참고 : https://jaceshim.github.io/2019/01/28/flutter-study-stateful-widget-lifecycle/ 
+      플러터가 Stateful Widget(상태를 저장하는 위젯)을 만들 때 State 객체를 만든다.
+      State객체는 해당 위젯의 모든 가변 상태가 유지되는 곳이다.
+
+      State의 개념은 두가지가 있다.
+      1. 위젯이 사용하는 데이터는 변경될 수 있다.
+      2. 위젯이 빌드될 때 데이터를 동시에 읽을 수 없다.
+
+    
+    상태 클래스 initState, deactivate 메서드
+      
+    1. 상태 클래스 initState 메서드
+       위젯이 생성될 때 처음 호출되는 메서드
+       stateful Widget 을 만들고, stateful Widget이 위젯 트리에 들어가게 되면 initState 메소드를 호출할 수 있다.
+       initState 메서드는 stateful Widget 만들어질 때 작업이 수행되길 원하면 사용하고, initState 메서드 안에 수행하고 싶은 작업을 넣으면 된다.
+       
+       ex)
+       ...
+       class _ScreenState extends State<Screen2>{
+        @override
+        void initState(){
+          super.initState();
+          print('initState Called');
+        }
+       }
+
+
+    2. deactivate 메서드
+       initState 메서드와 다르게 Stateful Widget이 사라질 때 사용하는 메서드다.
+
+       ex)
+       ...
+       class _ScreenState extends State<Screen2>{
+        @override
+        void deactivate(){
+          super.deactivate();
+          print('initState Called');
+        }
+       }
+    
+    */
+    return position;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: RaisedButton(
-        onPressed: () {
-          getLocation();
-        },
-        child: Text('Get Location'),
-      )),
-    );
+        // body: Center(
+        //     child: RaisedButton(
+        //   onPressed: () {
+        //     getLocation();
+        //   },
+        //   child: Text('Get Location'),
+        // )),
+        );
   }
 }
