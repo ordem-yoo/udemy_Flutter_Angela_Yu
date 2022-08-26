@@ -18,21 +18,32 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   // 위치를 얻는 메서드
-  Future<Position> getLocation() async {
-    // async와 await
-    // GPS 위치를 얻는 것처럼 시간 소요가 되는 작업을 수행할 때 쓴다.
-    // 데이터를 다운로드하거나 읽으려고 하는 경우에도 동일하게 쓴다.
-    // 비동기 프로그램은 UI를 차단, 앱을 잠시 정지시키고 백그라운드에서 시간이 많이 걸리는 작업을 수행한다.
-    LocationPermission permission = await Geolocator.requestPermission();
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
-    // PermissionDeniedException (User denied permissions to access the device's location.) 에러 발생
-    // 사용자에게 위치 정보를 묻는 창이 뜨지 않는 오류로 16번 줄을 추가해서 오류를 해결했다.
-    print(position);
-    // LocationAccuracy == 위치 정확도
-    // 위치 정확도에 따라서 배터리 소모 또한 달라지게 된다.
-    // 위치 정확도는 상황에 맞게 사용하면 된다.
-    // low의 경우 1KM~500m의 반경을 오차로 갖는다.
+  void getLocation() async {
+    // try catch 적용
+    try {
+      // throw
+      // throw는 예외를 강제적으로 발생시켜할 경우 사용한다.
+      // 예외를 강제적으로 발생시키는 이유는 객체를 잘못 사용하는 사용자에게 예외를 강제로 발생시켜서 사용자에게 주의를 줄 수 있고,
+      // 예외와 관련된 처리를 해달라고 부탁할 수 있다.
+
+      somethingThatExpectsLessThan10(12);
+      // async와 await
+      // GPS 위치를 얻는 것처럼 시간 소요가 되는 작업을 수행할 때 쓴다.
+      // 데이터를 다운로드하거나 읽으려고 하는 경우에도 동일하게 쓴다.
+      // 비동기 프로그램은 UI를 차단, 앱을 잠시 정지시키고 백그라운드에서 시간이 많이 걸리는 작업을 수행한다.
+      LocationPermission permission = await Geolocator.requestPermission();
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.low);
+      // PermissionDeniedException (User denied permissions to access the device's location.) 에러 발생
+      // 사용자에게 위치 정보를 묻는 창이 뜨지 않는 오류로 16번 줄을 추가해서 오류를 해결했다.
+      print(position);
+      // LocationAccuracy == 위치 정확도
+      // 위치 정확도에 따라서 배터리 소모 또한 달라지게 된다.
+      // 위치 정확도는 상황에 맞게 사용하면 된다.
+      // low의 경우 1KM~500m의 반경을 오차로 갖는다.
+    } catch (e) {
+      print(e);
+    }
 
     /*  동기식과 비동기식
 
@@ -85,19 +96,41 @@ class _LoadingScreenState extends State<LoadingScreen> {
        }
     
     */
-    return position;
+  }
+
+  void somethingThatExpectsLessThan10(int n) {
+    if (n > 10) {
+      throw 'n is greater than 10, n should always be less than 10.';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // body: Center(
-        //     child: RaisedButton(
-        //   onPressed: () {
-        //     getLocation();
-        //   },
-        //   child: Text('Get Location'),
-        // )),
-        );
+    // String myMargin = 'abc';
+    // double? myMarginAsADouble;
+
+    // // try catch문 예시
+    // try {
+    //   myMarginAsADouble = double.parse(myMargin);
+    // } catch (e) {
+    //   print(e);
+    // }
+    // return Scaffold(
+    //     body: Container(
+    //   margin: EdgeInsets.all(myMarginAsADouble ??
+    //       30.0), // ?? 와 값을 쓰면 해당 변수 값이 null이라면 ?? 뒤에 오는 값을 쓰겠다는 말이다.
+    //   color: Colors.red,
+    // )
+    //
+    // 버튼을 통해 GPS 정보 받기
+    // body: Center(
+    //     child: RaisedButton(
+    //   onPressed: () {
+    //     getLocation();
+    //   },
+    //   child: Text('Get Location'),
+    // )),
+    // );
+    return Scaffold(body: Container());
   }
 }
