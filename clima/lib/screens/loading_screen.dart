@@ -1,10 +1,9 @@
 // Package
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
 
 // Screen
 import 'location_screen.dart';
-import 'package:clima/services/loaction.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -18,6 +17,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     getLocation();
+    print("this line of code is triggered");
+    getData();
   }
 
   // 위치를 얻는 메서드
@@ -26,6 +27,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await location.getCurrentLocation();
     print(location.latitude);
     print(location.longtitude);
+  }
+
+// http 라이브러리의 버전이 0.13.3 이상부터 올라가면서 Uri를 사용해야 한다.
+
+// 기존 코드
+// Response response =await get(
+//  'https://samples.openweathermap.org/data/2.5/weather?lat=37&lon=126&appid=183a2973823402fd1de3aaf3a23e0c36');
+
+// 변경된 코드
+  void getData() async {
+    Response response = await get(Uri.parse(
+        'http://api.openweathermap.org/geo/1.0/reverse?lat=37.63963&lon=126.7161033&limit=5&appid=183a2973823402fd1de3aaf3a23e0c36'));
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print(response.statusCode);
+    }
   }
 
   @override
