@@ -1,6 +1,7 @@
 // Package
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'dart:convert';
 
 // Screen
 import 'location_screen.dart';
@@ -39,8 +40,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getData() async {
     Response response = await get(Uri.parse(
         'http://api.openweathermap.org/geo/1.0/reverse?lat=37.63963&lon=126.7161033&limit=5&appid=183a2973823402fd1de3aaf3a23e0c36'));
+
     if (response.statusCode == 200) {
-      print(response.body);
+      String data = response.body;
+      print(data);
+
+      //_TypeError
+      var longitude = jsonDecode(data)['coord']['lon'];
+      print(longitude);
+
+      var weatherDescription = jsonDecode(data)['weather'][0]['description'];
+      print(weatherDescription);
+      // Challenge create three variables that are going to contain the temperature
     } else {
       print(response.statusCode);
     }
