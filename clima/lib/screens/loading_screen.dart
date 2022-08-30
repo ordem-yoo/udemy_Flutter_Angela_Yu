@@ -26,8 +26,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print(location.latitude);
-    print(location.longtitude);
+    // print(location.latitude);
+    // print(location.longtitude);
   }
 
 // http 라이브러리의 버전이 0.13.3 이상부터 올라가면서 Uri를 사용해야 한다.
@@ -38,20 +38,36 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
 // 변경된 코드
   void getData() async {
+    // Json (JavaScript Obejct Notation)
+    // 자바 스크립트 객체 표기법이며, Dart에 있는 Map과 유사하다.
     Response response = await get(Uri.parse(
-        'http://api.openweathermap.org/geo/1.0/reverse?lat=37.63963&lon=126.7161033&limit=5&appid=183a2973823402fd1de3aaf3a23e0c36'));
+        'https://samples.openweathermap.org/data/2.5/weather?lat=37&lon=126&appid=183a2973823402fd1de3aaf3a23e0c36'));
 
+    // API에 연결에 대한 조건문
     if (response.statusCode == 200) {
+      // 요청 본문 값을 data 변수에 넣는다.
       String data = response.body;
-      print(data);
+      //print(data);
 
-      //_TypeError
-      var longitude = jsonDecode(data)['coord']['lon'];
-      print(longitude);
+      // //_TypeError [solved] URL typo
+      // var longitude = jsonDecode(data)['coord']['lon'];
+      // //print(longitude);
 
-      var weatherDescription = jsonDecode(data)['weather'][0]['description'];
-      print(weatherDescription);
-      // Challenge create three variables that are going to contain the temperature
+      // var weatherDescription = jsonDecode(data)['weather'][0]['description'];
+      // // []안에 있는 애들을 '키'라고 한다.
+      // // ['weather'] 다음에 숫자 0이 있는 이유는 json data의 구조에서 키의 이름이 없기 때문이다.
+      // // [0]다음에 오는 최종 키는 description 이라는 이름이 있기 때문에 ['description'] 이라고 썼다.
+      // print(weatherDescription);
+
+      // // Challenge
+      var temperature = jsonDecode(data)['main']['temp'];
+      print(temperature);
+
+      var name = jsonDecode(data)['name'];
+      print(name);
+
+      var id = jsonDecode(data)['weather'][0]['id'];
+      print(id);
     } else {
       print(response.statusCode);
     }
