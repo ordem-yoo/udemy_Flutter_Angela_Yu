@@ -1,10 +1,12 @@
 // Package
+import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
+import 'package:clima/services/networking.dart';
 
 // Screen
 import 'location_screen.dart';
+
+const apiKey = '183a2973823402fd1de3aaf3a23e0c36';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -12,65 +14,30 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  @override
+  double? latitude;
+  double? longtitude;
 
+  @override
   // initState 메서드를 사용해서 버튼을 사용하지 않고 자동으로 위치를 찾도록 했다.
   void initState() {
     super.initState();
-    getLocation();
-    print("this line of code is triggered");
-    getData();
+    getLocationData();
   }
 
   // 위치를 얻는 메서드
-  void getLocation() async {
+  void getLocationData() async {
     Location location = Location();
     await location.getCurrentLocation();
-    // print(location.latitude);
-    // print(location.longtitude);
-  }
 
-// http 라이브러리의 버전이 0.13.3 이상부터 올라가면서 Uri를 사용해야 한다.
+    latitude = location.latitude;
+    longtitude = location.longtitude;
+    // // 위,경도 출력
+    print(location.latitude);
+    print(location.longtitude);
+    NetworkHelper networkHelper = NetworkHelper(
+        'https://api.openweathermap.org/data/3.0/onecall?lat=$latitude&lon=$longtitude&appid=$apiKey');
 
-// 기존 코드
-// Response response =await get(
-//  'https://samples.openweathermap.org/data/2.5/weather?lat=37&lon=126&appid=183a2973823402fd1de3aaf3a23e0c36');
-
-// 변경된 코드
-  void getData() async {
-    // Json (JavaScript Obejct Notation)
-    // 자바 스크립트 객체 표기법이며, Dart에 있는 Map과 유사하다.
-    Response response = await get(Uri.parse(
-        'https://samples.openweathermap.org/data/2.5/weather?lat=37&lon=126&appid=183a2973823402fd1de3aaf3a23e0c36'));
-
-    // API에 연결에 대한 조건문
-    if (response.statusCode == 200) {
-      // 요청 본문 값을 data 변수에 넣는다.
-      String data = response.body;
-      //print(data);
-
-      // //_TypeError [solved] URL typo
-      // var longitude = jsonDecode(data)['coord']['lon'];
-      // //print(longitude);
-
-      // var weatherDescription = jsonDecode(data)['weather'][0]['description'];
-      // // []안에 있는 애들을 '키'라고 한다.
-      // // ['weather'] 다음에 숫자 0이 있는 이유는 json data의 구조에서 키의 이름이 없기 때문이다.
-      // // [0]다음에 오는 최종 키는 description 이라는 이름이 있기 때문에 ['description'] 이라고 썼다.
-      // print(weatherDescription);
-
-      // // Challenge
-      var temperature = jsonDecode(data)['main']['temp'];
-      print(temperature);
-
-      var name = jsonDecode(data)['name'];
-      print(name);
-
-      var id = jsonDecode(data)['weather'][0]['id'];
-      print(id);
-    } else {
-      print(response.statusCode);
-    }
+    var weatherData = await networkHelper.getData();
   }
 
   @override
