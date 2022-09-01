@@ -1,6 +1,6 @@
 ![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
 # Introduce
-<h3>Udemy Angela Yu 2021 Flutter Development Bootcamp 강의를 들으면서 한 실습입니다.</h3>
+<h3>This repository is an app created while listening to Udemy Angela Yu 2021 Flutter Development Bootcamp.</h3>
 <br>
 
 ## App List
