@@ -1,6 +1,10 @@
 // Package
-import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+// Page
+import 'package:clima/services/networking.dart';
+import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 
 // Screen
@@ -25,8 +29,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   // 위치를 얻는 메서드
-  void getLocationData() async {
+  Future<LocationScreen> getLocationData() async {
     Location location = Location();
+
     await location.getCurrentLocation();
 
     latitude = location.latitude;
@@ -38,6 +43,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
         'https://api.openweathermap.org/data/3.0/onecall?lat=$latitude&lon=$longtitude&appid=$apiKey');
 
     var weatherData = await networkHelper.getData();
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen();
+    }));
+
+    return LocationScreen();
   }
 
   @override
@@ -67,7 +78,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
     //   child: Text('Get Location'),
     // )),
     // );
-    return Scaffold(body: Container());
+    return Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
+    );
   }
 }
 
