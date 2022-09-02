@@ -10,7 +10,10 @@ class NetworkHelper {
 
 // 기존 코드
 // Response response =await get(
-//  'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}');
+//  'http://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$logitude&appid=$apikey');
+
+// api 보기
+//http://api.openweathermap.org/data/2.5/forecast?lat=37.6&lon=126.7&appid=21a6f5286891dd8ccc2a942880607c6e
 
 // 변경된 코드
   Future getData() async {

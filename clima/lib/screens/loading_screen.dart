@@ -5,12 +5,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 // Page
 import 'package:clima/services/networking.dart';
 import 'package:clima/screens/location_screen.dart';
-import 'package:clima/services/networking.dart';
 
 // Screen
 import 'location_screen.dart';
 
-const apiKey = '183a2973823402fd1de3aaf3a23e0c36';
+// Key
+const apiKey = '21a6f5286891dd8ccc2a942880607c6e';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -18,9 +18,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  double? latitude;
-  double? longtitude;
-
   @override
   // initState 메서드를 사용해서 버튼을 사용하지 않고 자동으로 위치를 찾도록 했다.
   void initState() {
@@ -29,26 +26,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   // 위치를 얻는 메서드
-  Future<LocationScreen> getLocationData() async {
+  void getLocationData() async {
     Location location = Location();
 
     await location.getCurrentLocation();
 
-    latitude = location.latitude;
-    longtitude = location.longtitude;
     // // 위,경도 출력
     print(location.latitude);
     print(location.longtitude);
+
     NetworkHelper networkHelper = NetworkHelper(
-        'https://api.openweathermap.org/data/3.0/onecall?lat=$latitude&lon=$longtitude&appid=$apiKey');
+        'http://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude}&lon=${location.longtitude}&appid=$apiKey&units=metric');
 
     var weatherData = await networkHelper.getData();
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen();
+      return LocationScreen(
+        locationWeather: weatherData,
+      );
     }));
-
-    return LocationScreen();
   }
 
   @override

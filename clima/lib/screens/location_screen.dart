@@ -1,16 +1,50 @@
 // Package
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:clima/services/weather.dart';
 
 // Style
 import 'package:clima/utilities/constants.dart';
 
 class LocationScreen extends StatefulWidget {
+  LocationScreen({this.locationWeather});
+
+  final locationWeather;
+
   @override
   State<LocationScreen> createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  WeatherModel weather = WeatherModel();
+  int? temperature;
+  late String weatherIcon;
+  String? cityName;
+  late String message;
+
+  @override
+  void initState() {
+    super.initState();
+    // widget.locationWeather를 updateUI메소드로 전달, 제공할 수 있다.
+    updateUI(widget.locationWeather);
+  }
+
+  // 현재 위치의 날씨와 온도, 상태를 얻기 위해 메서드 작성
+  void updateUI(dynamic weatherData) {
+    setState(() {
+      // api마다 다르기 때문에 api viewer를 잘 보고 쓰는게 좋다.
+      double temp = weatherData['list'][0]['main']['temp'];
+      temperature = temp.toInt();
+      // 37, 38번을 축약시켜 한 줄로 코드 양을 줄일 수 있지만, 가독성 또한 코드를 짤 때 중요하다.
+      // 가독성과 코드 양을 서로 생각해보면서 만드는게 좋다.
+      var condition = weatherData['list'][0]['weather'][0]['id'];
+      weatherIcon = weather.getWeatherIcon(condition);
+
+      cityName = weatherData['city']['name'];
+      message = weather.getMessage(temperature!);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,13 +54,15 @@ class _LocationScreenState extends State<LocationScreen> {
             image: AssetImage('images/location_background.jpg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.8), BlendMode.dstATop),
+                // withOpacity 불투명도 표시
+                Colors.white.withOpacity(0.8),
+                BlendMode.dstATop),
           ),
         ),
+        // 너비 또는 높이가 지정된 경우, 지정된 크기에 지정된 값을 필요로 한다.
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
@@ -42,25 +78,34 @@ class _LocationScreenState extends State<LocationScreen> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
+                padding: EdgeInsets.fromLTRB(15.0, 50.0, 0.0, 0.0),
+                child: Row(children: [
+                  Text(
+                    '$cityName',
+                    style: kCityNmaeTextStyle,
+                  )
+                ]),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(15.0, 30.0, 0.0, 0.0),
                 child: Row(
                   children: [
                     Text(
-                      '32º',
+                      '$temperatureº',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      weatherIcon,
                       style: kConditionTextStyle,
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: EdgeInsets.only(top: 170.0),
                 child: Text(
-                  "it's 🍦 time in San Francisco!",
-                  textAlign: TextAlign.right,
+                  message,
+                  textAlign: TextAlign.center,
                   style: kMessageTextStyle,
                 ),
               ),
@@ -120,7 +165,7 @@ class Location {
     */
 
     /* 참고 : https://jaceshim.github.io/2019/01/28/flutter-study-stateful-widget-lifecycle/ 
-      플러터가 Stateful Widget(상태를 저장하는 위젯)을 만들 때 State 객체를 만든다.
+      Stateful Widget(상태를 저장하는 위젯)을 만들 때 State 객체를 만든다.
       State객체는 해당 위젯의 모든 가변 상태가 유지되는 곳이다.
 
       State의 개념은 두가지가 있다.
