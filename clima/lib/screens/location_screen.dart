@@ -32,6 +32,15 @@ class _LocationScreenState extends State<LocationScreen> {
   // 현재 위치의 날씨와 온도, 상태를 얻기 위해 메서드 작성
   void updateUI(dynamic weatherData) {
     setState(() {
+      // 스마트폰에서 위치를 끄거나 openWeatherMap의 서버가 문제가 생기는등 코드 외적으로도 발생하는 문제가 있다.
+      // 문제가 발생하면 전달받은 값이 null이 되기 때문에 null의 경우를 아래 코드로 작성했다.
+      if (weatherData == null) {
+        temperature = 0;
+        weatherIcon = 'error';
+        message = 'Unable to get weather data';
+        cityName = '';
+        return;
+      }
       // api마다 다르기 때문에 api viewer를 잘 보고 쓰는게 좋다.
       double temp = weatherData['list'][0]['main']['temp'];
       temperature = temp.toInt();
@@ -69,12 +78,21 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
+                  FlatButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.location_city,
+                        size: 50.0,
+                      )),
                 ],
               ),
               Padding(
