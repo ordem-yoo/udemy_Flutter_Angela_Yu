@@ -1,4 +1,5 @@
 // Package
+import 'package:clima/screens/city_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:clima/services/weather.dart';
@@ -37,7 +38,8 @@ class _LocationScreenState extends State<LocationScreen> {
       if (weatherData == null) {
         temperature = 0;
         weatherIcon = 'error';
-        message = 'Unable to get weather data';
+        message =
+            'Unable to get weather data. Please turn on access to location information';
         cityName = '';
         return;
       }
@@ -88,7 +90,16 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CityScreen();
+                            },
+                          ),
+                        );
+                      },
                       child: Icon(
                         Icons.location_city,
                         size: 50.0,
