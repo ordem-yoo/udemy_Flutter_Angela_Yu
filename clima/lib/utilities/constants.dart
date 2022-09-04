@@ -25,21 +25,26 @@ const kCityNmaeTextStyle = TextStyle(
 );
 
 const kTextFieldInputDecoration = InputDecoration(
+  // TextFormField의 배경색 유무
   filled: true,
   fillColor: Colors.white,
   icon: Icon(
     Icons.location_city,
     color: Colors.white,
   ),
+  // placeholder
   hintText: 'Enter City Name',
   hintStyle: TextStyle(
     color: Colors.grey,
   ),
   border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(
-          10.0,
-        ),
+    // 모서리 깎기
+    borderRadius: BorderRadius.all(
+      Radius.circular(
+        10.0,
       ),
-      borderSide: BorderSide.none),
+    ),
+    // TextFormField 테두리 제거
+    borderSide: BorderSide.none,
+  ),
 );

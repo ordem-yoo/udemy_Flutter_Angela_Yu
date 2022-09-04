@@ -7,6 +7,20 @@ const apiKey = '21a6f5286891dd8ccc2a942880607c6e';
 const openWeatherMapURL = 'http://api.openweathermap.org/data/2.5/forecast';
 
 class WeatherModel {
+  // location_screen.dart에 있는 것으로는 입력한 도시의 날씨를 불러올 수 없다.
+  // getCityWeather 메소드에 입력한 도시의 날씨를 불러올 수 있게 했다.
+  // 반환하는 weatherData는 동적 출력, 역동적인 결과를 가져오기 때문에 Future<dynamic>을 쓴다.
+  Future<dynamic> getCityWeather(String cityName) async {
+    NetworkHelper networkHelper = NetworkHelper(
+        // openWeatherMap api docs 참고
+        // ?q=를 통해 도시 이름을 넣을 수 있다.
+        '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric');
+
+    // getData는 비동기적이기 때문에 비동기 메서드로 표시한다.
+    var weatherData = await networkHelper.getData();
+    return weatherData;
+  }
+
   Future<dynamic> getLocationWeather() async {
     Location location = Location();
 

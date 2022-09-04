@@ -90,20 +90,34 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CityScreen();
-                            },
-                          ),
-                        );
-                      },
-                      child: Icon(
-                        Icons.location_city,
-                        size: 50.0,
-                      )),
+                    // 화면이 pop 되고 수행하기 때문에 비동기
+                    onPressed: () async {
+                      // 화면 전환을 위해 Navigator.push 사용
+                      // 화면이 pop 되고나서 값을 가져오기 위해 위젯을 변수에 넣었다.
+                      var typedName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            // 이동하고 싶은 화면
+                            return CityScreen();
+                          },
+                        ),
+                      );
+                      // TextFormField에서 입력학고 얻은 값을 출력
+                      print(typedName);
+
+                      if (typedName != null) {
+                        // getCityWeather 메서드는 비동기적이 때문에 비동기 메소드라고 표시한다.
+                        var weatherData =
+                            await weather.getCityWeather(typedName);
+                        updateUI(weatherData);
+                      }
+                    },
+                    child: Icon(
+                      Icons.location_city,
+                      size: 50.0,
+                    ),
+                  ),
                 ],
               ),
               Padding(
