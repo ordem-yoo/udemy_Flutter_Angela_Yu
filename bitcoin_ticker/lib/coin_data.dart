@@ -9,7 +9,7 @@ const List<String> currenciesList = [
   'IDR',
   'ILS',
   'INR',
-  'krw',
+  'kRW',
   'JPY',
   'MXN',
   'NOK',
