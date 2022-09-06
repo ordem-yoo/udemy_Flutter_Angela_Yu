@@ -13,7 +13,7 @@ class NetworkHelper {
 //  'http://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$logitude&appid=$apikey');
 
 // api 보기
-//http://api.openweathermap.org/data/2.5/forecast?lat=37.6&lon=126.7&appid=21a6f5286891dd8ccc2a942880607c6e
+//http://api.openweathermap.org/data/2.5/forecast?lat=37.6&lon=126.7&appid=secretkey
 
 // 변경된 코드
   Future getData() async {
