@@ -13,8 +13,12 @@ class NetworkHelper {
 //  'http://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$logitude&appid=$apikey');
 
 // api 보기
+<<<<<<< HEAD
 //http://api.openweathermap.org/data/2.5/forecast?lat=37.6&lon=126.7&appid=secretkey
 
+=======
+//http://api.openweathermap.org/data/2.5/forecast?lat=37.6&lon=126.7&appid='sercret key'
+>>>>>>> 65507d2169cc4ebee66aaef60d710b281ae2fbf6
 // 변경된 코드
   Future getData() async {
     // Json (JavaScript Obejct Notation)
