@@ -12,23 +12,40 @@ class _PriceScreenState extends State<PriceScreen> {
 
   // DropdownMenuButton
   List<DropdownMenuItem<String>> getDropdownItems() {
+    // coin_data.dart에 있는 currenciesList에서 가져온 목록들을 저장하기 위해 변수를 만들었다.
     List<DropdownMenuItem<String>> dropdownItems = [];
+    // currencies.length는 coin_data.dart에 있는 currenciesList가 가지고 있는 목록 개수를 의미한다.
     for (int i = 0; i < currenciesList.length; i++) {
       String currency = currenciesList[i];
+      // 드롭다운 메뉴 아이템을 커스텀 하기 위해 새 변수를 선언했다.
+      // 드롭다운 메뉴 아이템에 들어갈 항목들은 coin_data.dart에 있는 currenciesList가 가지고 있는 목록이다.
       var newItem = DropdownMenuItem(
         child: Text(currency),
         value: currency,
       );
+      // newItem 드롭다운에 가져온 목록들을 하나씩 저장한다.
       dropdownItems.add(newItem);
     }
-
     return dropdownItems;
   }
+
+  // // for statement challenge
+  // List<DropdownMenuItem<String>> androidDropdown() {
+  //   List<DropdownMenuItem<String>> dropdownItems = [];
+  //   for (String currency in currenciesList) {
+  // // for 문 조건 :  currentciesList가 가지고 있는 목록 전부
+  //     var newItem = DropdownMenuItem(
+  //       child: Text(currency),
+  //       value: currency,
+  //     );
+  //     dropdownItems.add(newItem);
+  //   }
+  //   return dropdownItems;
+  // }
 
   // // CupertinoPicker method
   // List<Text> getPickerItems() {
   //   List<Text> pickerItems = [];
-
   //   for (String currency in currenciesList) {
   //     Text(currency);
   //     pickerItems.add(Text(currency));
@@ -85,6 +102,8 @@ class _PriceScreenState extends State<PriceScreen> {
               },
             ),
 
+            //
+            // IOS 스타일의 드롭다운 버튼이다.
             // child: CupertinoPicker(
             //   itemExtent: 32.0,
             //   onSelectedItemChanged: (selectedIndex) {
