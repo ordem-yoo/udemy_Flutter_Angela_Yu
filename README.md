@@ -1,4 +1,4 @@
-![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
+<a href="https://github.com/londonappbrewery/Flutter-Course-Resources" target="_blank" rel="noreferrer"> <img src="https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png" alt="Londonappbrewery Flutter-Course-Resources" width="1200" /> </a>
 # Introduce
 <h3>This repository is an app created while listening to Udemy Angela Yu 2021 Flutter Development Bootcamp.</h3>
 <br>
