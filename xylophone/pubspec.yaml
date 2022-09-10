@@ -1,22 +1,27 @@
 name: xylophone
-description: A new Flutter application.
+description: A new Flutter project.
+
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.16.1 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^0.1.2
-  audioplayers: ^0.20.1
-  # Use Audioplayers dependency version 0.17.4
+
+  cupertino_icons: ^1.0.2
+  audioplayers: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^1.0.0
 
 flutter:
 
@@ -24,4 +29,3 @@ flutter:
 
   assets:
     - assets/
-
