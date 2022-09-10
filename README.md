@@ -15,7 +15,7 @@
 3. [Random Dice App](https://github.com/ordem-yoo/Udemy_Flutter_Angela_Yu/tree/main/dicee)  
 <br>  
 
-4. [magic 8 Ball](https://github.com/londonappbrewery/magic-8-ball-flutter)
+4. [magic 8 Ball](https://github.com/ordem-yoo/udemy_Flutter_Angela_Yu/tree/main/magic_8_ball)
 <br>
 
 5. [Xylophone App](https://github.com/ordem-yoo/Udemy_Flutter_Angela_Yu/tree/main/xylophone)
