@@ -4,22 +4,9 @@ import 'package:flutter/material.dart';
 void main() => runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BallPage(),
+        home: Ball(),
       ),
     );
-
-class BallPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueAccent.shade200,
-      appBar: AppBar(
-        title: Text('Ask Me Anything'),
-      ),
-      body: Ball(),
-    );
-  }
-}
 
 class Ball extends StatefulWidget {
   // 앱 UI의 유동적 변화를 위해서 StatefulWidget 사용
@@ -42,14 +29,20 @@ class _BallState extends State<Ball> {
   @override
   Widget build(BuildContext context) {
     // build 메서드를 피한 변수 선언
-    return Center(
-      child: FlatButton(
-        onPressed: () {
-          // 함수 사용
-          ChangeBallNumber();
-        },
-        child: Image.asset('images/ball$ballNumber.png'),
-        // String interpolation 사용
+    return Scaffold(
+      backgroundColor: Colors.blueAccent.shade200,
+      appBar: AppBar(
+        title: Text('Ask Me Anything'),
+      ),
+      body: Center(
+        child: FlatButton(
+          onPressed: () {
+            // 함수 사용
+            ChangeBallNumber();
+          },
+          child: Image.asset('images/ball$ballNumber.png'),
+          // String interpolation 사용
+        ),
       ),
     );
   }
