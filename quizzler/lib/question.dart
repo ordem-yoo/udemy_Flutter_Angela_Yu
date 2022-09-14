@@ -14,7 +14,7 @@
 // }
 
 class Question {
-  String questionText = '';
+  String questionText;
   bool questionAnswer = false;
 
   Question(this.questionText, this.questionAnswer);

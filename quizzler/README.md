@@ -1,19 +1,8 @@
-![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
+# Quiz app
+<br>
+<h4> This app is for solving quizzes. </h4>
+<h4> Detailed description can be found in  <a href="https://ordem.notion.site/Quiz-App-76f5d07af8614cc38f9a5fcc58fc9ffd"> <img height="25" align=absmiddle src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white" alt="ordem-yoo" /></a>
+</h4>
+<br>
 
-
-# Quizzler Challenge - Starting Files
-
-- Clone this repository to your local system.
-
-- Read the docs for the package we're using:
-
-[rFluttter Alert](https://pub.dartlang.org/packages/rflutter_alert)
-
-- Follow the step by step challenges.
-
-
-
-
->This is a companion project to The App Brewery's Complete Flutter Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
-
-![End Banner](https://github.com/londonappbrewery/Images/blob/master/readme-end-banner.png)
+<img src="https://im3.ezgif.com/tmp/ezgif-3-48915ab008.gif" />
