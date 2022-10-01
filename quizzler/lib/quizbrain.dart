@@ -5,21 +5,21 @@ class QuizBrain {
   // 변수명 앞에 _를 사용해서 다른 곳에서 접근하지 못하도록 할 수 있다.
 
   List<Question> _questionBank = [
-    Question('Ordem은 ISTJ입니다.', true),
-    Question('Ordem의 장래희망은 웹 개발자입니다.', false),
-    Question('Ordem이 가장 많이 보유한 이모티콘 시리즈는 \n 냐한남자 시리즈 입니다.', false),
-    Question('Ordem은 축구를 좋아합니다.', true),
-    Question('Ordem이 제일 좋아하는 노래는\n 마마무의 데칼코마니입니다.', false),
-    Question('Ordem은 수박을 싫어합니다.', false),
-    Question('Ordem은 카폐에서 아메리카노만 먹습니다.', false),
-    Question('Ordem은 공포영화를 싫어 합니다.', false),
-    Question('Ordem은 발사이즈가 260입니다.', false),
-    Question('Ordem은 대학교에서 2개의 동아리 활동을 했습니다.', false),
-    Question('Ordem의 출생지는 김포입니다.', false),
-    Question('Ordem은 게임 대회에서 우승한 적이 있습니다.', false),
-    Question('Ordem은 TV에 나온적이 있습니다.', true),
-    Question('Ordem은 차남입니다.', false),
-    Question('Ordem이 배운 경험이 있는 악기는 피아노입니다.', true)
+    Question('유민상은 ISTJ입니다.', true),
+    Question('유민상의 장래희망은 웹 개발자입니다.', false),
+    Question('유민상이 가장 많이 보유한\n카카오톡 이모티콘은 냐한남자 시리즈 입니다.', false),
+    Question('유민상은 축구를 좋아합니다.', true),
+    Question('유민상이 제일 좋아하는 노래는\n 마마무의 데칼코마니입니다.', false),
+    Question('유민상은 수박을 싫어합니다.', false),
+    Question('유민상은 카폐에서 아메리카노만 먹습니다.', false),
+    Question('유민상은 공포영화를 싫어 합니다.', false),
+    Question('유민상의 발사이즈는 260입니다.', false),
+    Question('유민상은 대학교에서 2개의 동아리 활동을 했습니다.', false),
+    Question('유민상의 출생지는 김포입니다.', false),
+    Question('유민상은 게임 대회에서 우승한 적이 있습니다.', false),
+    Question('유민상은 TV에 나온적이 있습니다.', true),
+    Question('유민상은 차남입니다.', false),
+    Question('유민상이 배운 경험이 있는 악기는 피아노입니다.', true)
   ];
 
   // 접근이 제한된 변수를 사용하기 위해 함수로 만들어서 사용했다.

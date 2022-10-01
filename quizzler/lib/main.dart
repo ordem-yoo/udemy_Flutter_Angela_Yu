@@ -59,8 +59,17 @@ class _QuizPageState extends State<QuizPage> {
       if (quiz.isFinished() == true) {
         Alert(
           context: context,
-          title: "Finished",
-          desc: "you've reached the end of the quiz",
+          desc: "모든 문제를 풀었습니다.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "처음으로 돌아가기",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 150,
+            )
+          ],
         ).show();
 
         quiz.reset();
@@ -139,7 +148,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Text(
                 quiz.getQuestionText(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: TextStyle( 
                   fontSize: 25.0,
                   color: Colors.white,
                 ),
@@ -154,7 +163,7 @@ class _QuizPageState extends State<QuizPage> {
               textColor: Colors.white,
               color: Colors.green,
               child: const Text(
-                'True',
+                'O',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -172,7 +181,7 @@ class _QuizPageState extends State<QuizPage> {
             child: FlatButton(
               color: Colors.red,
               child: const Text(
-                'False',
+                'X',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
