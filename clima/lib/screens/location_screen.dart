@@ -103,7 +103,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           },
                         ),
                       );
-                      // TextFormField에서 입력학고 얻은 값을 출력
+                      // TextFormField에서 입력하고 얻은 값을 출력
                       print(typedName);
 
                       if (typedName != null) {
