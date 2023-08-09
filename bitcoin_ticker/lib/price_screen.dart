@@ -15,7 +15,8 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String selectedCurrency = 'USD';
+  // Silver 6. 통화목록의 첫 번째 항목인 AUD로 기본 통화를 업데이트하기
+  String selectedCurrency = 'AUD';
 
   // refactoring dropdownbutton
   // 이전 커밋 확인해 볼 것
@@ -61,6 +62,8 @@ class _PriceScreenState extends State<PriceScreen> {
       onChanged: (value) {
         setState(() {
           selectedCurrency = value!;
+          // Silver 2. picker/dropdown을 변경할 때 getData 호출
+          getData();
         });
       },
     );
@@ -79,9 +82,37 @@ class _PriceScreenState extends State<PriceScreen> {
       itemExtent: 32.0,
       onSelectedItemChanged: (selectedIndex) {
         print(selectedIndex);
+        // Silver 1. 선택한 통화를 selectedCurrency 속성에 저장
+        selectedCurrency = currenciesList[selectedIndex];
+        // Silver 2. picker/dropdown을 변경할 때 getData 호출
+        getData();
       },
       children: pickerItems,
     );
+  }
+
+  // Bronze 12. TextWidget에서 값을 유지하고 사용할 수 있는 변수를 만들고, 데이터가 비동기 메서드에 돌아오기 전에 변수에 '?'로 시작 값 지정
+  String bitcoinValue = '?';
+
+  // Bronze 11. coin.dart로부터 coindata를 await하는 비동기 메서드 만들기
+  void getData() async {
+    try {
+      double data = await CoinData().getCoinData(selectedCurrency);
+      // Bronze 13. setState()에서 await을 할 수 없기 때문에 두 단계로 분리
+      setState(() {
+        // toStringAsFixed는 소수점 개수를 고정하는 함수
+        bitcoinValue = data.toStringAsFixed(0);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Bronze 14. 화면에 로드되면 getData() 호출, coinData()를 호출할 수 없음, InitState()를 비동기화 할 수 없기 때문에 getCoinData()를 여기로 가져옴
+    getData();
   }
 
   // // for statement challenge
@@ -133,7 +164,8 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = ? USD',
+                  // Silver 5. 통화를 선택하면 화면에 선택된 통화가 나오도록 하기
+                  '1 BTC = $bitcoinValue $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
